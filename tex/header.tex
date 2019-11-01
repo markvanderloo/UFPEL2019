@@ -1,0 +1,107 @@
+%% LaTeX header for UFPEL visit
+%% Mark van der Loo (2019)
+
+
+% verbatim environment, and fvextra to allow line breaks.
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+
+%transparent canvas
+\setbeamercolor{background canvas}{bg=}
+
+\usepackage{tikz}
+
+\usetikzlibrary{arrows, positioning, decorations.pathreplacing} 
+\usepackage{pgfplots}
+\usepackage{color}
+
+\definecolor{ufpeldarkblue}{HTML}{0066B3}
+\definecolor{ufpelliteblue}{HTML}{A5D8F0}
+\definecolor{ufpelgreyblue}{HTML}{004C98}
+
+
+% Center title since we use the wide format
+\setbeamertemplate{frametitle}[default][center]
+
+% Lower frame titles a bit to center between logos
+\addtobeamertemplate{frametitle}{\vskip0.5ex}{}
+
+% presentation title attributes
+\setbeamercolor{title}{fg=ufpelgreyblue}
+\setbeamerfont{title}{series=\bfseries}
+
+
+% frame title attributes
+\setbeamerfont{frametitle}{series=\bfseries}
+\setbeamercolor{frametitle}{fg=ufpeldarkblue}
+
+% part title attributes
+\setbeamercolor{part title}{fg=ufpeldarkblue}
+\setbeamerfont{part title}{series=\bfseries}
+
+% section title attributes
+\setbeamercolor{section title}{fg=ufpelliteblue}
+\setbeamerfont{section title}{series=\bfseries}
+
+% chapter title attributes
+\setbeamercolor{chapter title}{fg=ufpelliteblue}
+\setbeamerfont{chapter title}{series=\bfseries}
+
+
+% set colors
+\setbeamertemplate{itemize item}{\color{ufpelgreyblue}{\raisebox{-.7ex}{\Huge$\cdot$}\!}}
+\setbeamertemplate{itemize subitem}{\color{ufpelgreyblue}$-$}
+\setbeamercolor*{enumerate item}{fg=ufpelgreyblue}
+\setbeamercolor*{enumerate subitem}{fg=ufpelgreyblue}
+\setbeamercolor*{enumerate subsubitem}{fg=ufpelgreyblue}
+\setbeamercolor{author}{fg=ufpelgreyblue}
+\setbeamercolor{normal text}{fg=ufpelgreyblue}
+
+\setbeamercolor{block title}{fg=ufpelgreyblue}
+\setbeamerfont{block title}{series=\bfseries}
+
+
+% remove the space-eating navigation symbols
+\beamertemplatenavigationsymbolsempty
+
+% we need TIKZ to position the logos.
+\usepackage{tikz}
+
+% convenience function to define rgb colors in tikz
+\tikzset{xcolor/.code args={#1=#2}{
+     \definecolor{mytemp}{rgb}{#2}
+     \tikzset{#1=mytemp}
+  }
+}
+
+
+% set up logos and colored bar for each page
+\logo{
+  % vertical bar in CBS house style color
+  \begin{tikzpicture}[remember picture,overlay]
+    \path[fill=ufpelliteblue]
+      (current page.south west)
+      +(0,0pt) rectangle +(5mm,12cm); 
+  \end{tikzpicture}
+
+  % CBS logo (bottom left)
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[xshift=-1cm, yshift=0.5cm] at (current page.south east){
+        \includegraphics[width=2cm]{../tex/logos/ufpel50.png}
+    } ;
+  \end{tikzpicture}
+
+
+}
+
+% set up logo for title page, only on title page.
+\institute{
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[xshift=-1.5cm,yshift=-1.1cm] at (current page.north east) {
+        \includegraphics[width=2cm]{../tex/logos/ufpel.png}
+    };
+  \end{tikzpicture}
+  %\textcolor{ufpeldarkblue}{Universidade Federal do Pelotas}
+}
+
+

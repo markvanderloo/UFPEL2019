@@ -294,12 +294,26 @@ Reinhart-Rogoff error
 
 \hfill\tiny Ziemann, Eren, El-Osta \textit{Genome Biology} \textbf{17} 177 (2016)
 
+
 ## Homework assignment
 
 \centering
 {\huge Google `excel disasters'}
 
 and spend 30 minutes reading what you find
+
+
+## A bit of terminology
+
+\begin{center}
+\begin{tabular}{r@{$\quad\leftrightarrow\quad$}l}
+\textbf{Computer scientists} & \textbf{Statisticians}\\
+Entity type & Population\\
+Entity      & Population unit\\
+Attribute   & (Stochastic) variable \\
+Value       & Value\\
+\end{tabular}
+\end{center}
 
 
 ## How to recognize whether data is suited for analysis\footnote{Only for simple rectangular data sets}
@@ -326,13 +340,215 @@ Can you make meaningful summary statistics over each column?
 \put(200,-50){\includegraphics[height=3cm]{fig/bdichtheid.png}}
 \put(300,-75){\includegraphics[height=2cm]{fig/image.jpg}}
 
-\put(0,-90){Each data type consists of particular basic elements and is
-manipulated\\ with particular basic operations.}
+\put(0,-95){\begin{minipage}{0.8\textwidth}Each data type consists of particular basic elements and is
+manipulated\\ with particular basic operations.\end{minipage}}
+\end{picture}
+
+
+# The Statistical Value Chain
+
+
+## Value Chains
+
+### Porter's value chain (1985)
+
+_The idea of the value chain is based on the process view of organizations, the idea of seeing a manufacturing (or service) organization as a system, made up of subsystems each with inputs, transformation processes and outputs._
+
+
+## Statistical Value Chain
+
+\begin{center}
+\includegraphics[height=3cm]{fig/valuechain.pdf}
+\end{center}
+
+
+### Notes
+
+- This part only pertains to the data processing stage. Collection, design of
+experiments, dissemination of results, and so on are not included.
+- The fixed points (half-fabricates) are well-defined statistical products.
+
+
+## Raw data
+
+\begin{center}
+\includegraphics[height=15mm]{fig/vc_raw.pdf}
+\end{center}
+
+### Your most valueable resource!
+
+- Hard/expensive to obtain
+- Keep unchanged
+- Backup according to 3-2-1 principle
+
+\begin{picture}(0,0)
+\put(250,-20){\includegraphics[height=3cm]{fig/321.png}}
 \end{picture}
 
 
 
+## The importance of backups
 
+
+
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+    \includegraphics[height=5cm]{fig/hd_failure.png}
+    \tiny backblaze.com/blog/backblaze-hard-drive-stats-q2-2019/
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \begin{block}{Optimistically:}
+      \begin{itemize}
+       \item On average $P(failure)\approx0.01$/year.
+       \item UFPEL has $\approx 20\,000$ students.
+       \item We expect $\approx 200$ failures/year. 
+    \end{itemize}
+    \end{block}
+  \end{column}
+\end{columns}
+
+
+
+## Input data
+
+\begin{center}
+\includegraphics[height=15mm]{fig/vc_input.pdf}
+\end{center}
+
+### Technically 'clean' data
+
+- File type is known and can be read
+- Variables are of correct type (number/date/text/categorical$\ldots$)
+- Records identified with statistical objects
+- Variables identified with statistical properties
+
+### Rule of thumb
+
+You can read this data into your favorite analyses tool,
+without errors, with a single expression.
+
+## Valid data
+
+\begin{center}
+\includegraphics[height=15mm]{fig/vc_valid.pdf}
+\end{center}
+
+
+### Satisfy domain knowledge constraints
+
+- Age cannot be negative
+- Someone under 15 yrs old cannot have income from work
+- Mean economic growth/decline does not exceed 5\% in a certain sector
+- $...$
+    
+### Justification
+
+Invalid data leads to invalid statistical results. 
+
+
+
+
+## Statistics
+
+
+\begin{center}
+\includegraphics[height=15mm]{fig/vc_statistics.pdf}
+\end{center}
+
+###  Target output values (aggregates) 
+
+- The resulting numbers for publication
+
+### Note
+
+- These also need to satisfy domain knowledge constraints.
+
+
+
+## Output
+
+\begin{center}
+\includegraphics[height=15mm]{fig/vc_format.pdf}
+\end{center}
+
+### Your paper!
+
+- Formatted, annotated
+- Data possibly treated with anonymization techniques (SDC = statistical
+  disclosure control)
+
+
+
+## The SVC: Remarks
+
+\begin{center}
+\includegraphics[height=30mm]{fig/valuechain.pdf}
+\end{center}
+
+- Actual data processing is not linear, you will go round a few times.
+- Add or remove stages as needed.
+- This general idea scales really well.
+
+
+
+## Quizz (1)
+
+\begin{center}
+\includegraphics[height=2.5cm]{fig/valuechain.pdf}
+\end{center}
+
+### Where does the following activity take place?
+
+Formatting date-time variable to `ISO8106` format.
+
+## Quizz (2)
+
+\begin{center}
+\includegraphics[height=2.5cm]{fig/valuechain.pdf}
+\end{center}
+
+### Where does the following activity take place?
+
+Estimating effect of educational level on income.
+
+
+## Quizz (3)
+
+\begin{center}
+\includegraphics[height=2.5cm]{fig/valuechain.pdf}
+\end{center}
+
+### Where does the following activity take place?
+
+Standardizing miss-spelled categories, e.g.
+
+- \texttt{"Sim"},\texttt{"si"} $\to$ \texttt{"sim"}
+- \texttt{"NO"}, \texttt{"Nao"} $\to$ \texttt{"n\~ao"}
+
+## Quizz (4)
+
+\begin{center}
+\includegraphics[height=2.5cm]{fig/valuechain.pdf}
+\end{center}
+
+### Where does the following activity take place?
+
+Removing of fixing records where unemployed persons
+have a positive income from employment.
+
+
+
+## Quizz (5)
+
+\begin{center}
+\includegraphics[height=2.5cm]{fig/valuechain.pdf}
+\end{center}
+
+### Where does the following activity take place?
+
+Join data with a backbone using probabilistic 
+linkage, based on approximate matches between various
+columns of the data and the backbone.
 
 
 
