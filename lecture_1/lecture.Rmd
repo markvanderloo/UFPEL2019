@@ -332,6 +332,55 @@ Value       & Value\\
 Can you make meaningful summary statistics over each column?
 
 
+## Quizz (1): Ready for analyes?
+
+
+|            | Alice  | Bob   |  Carol |
+|------------|--------|-------|--------|
+| Shoe size  |  38    | 43    | 41     |
+| Income     |  3300  | 2800  | 4000   |
+
+
+
+## Quizz (2): Ready for analyses?
+
+|      | Shoe size | Income |
+|------|-----------|--------|
+|Alice | 38        | 3300   |
+|Bob   | 43        | 2800   |
+|Carol | 41        | 4000   |
+
+
+## Quizz (3): Ready for analyses?
+
+**Income distribution**
+
+|           |€14k -- €20k | €20k -- €40k| €40k -- €80k |  €80K+ | 
+|-----------|-------------|-------------|--------------|--------|
+| Amsterdam | 20%         |    40%      |    35%       |  5%    |
+| Rotterdam | 30%         |    30%      |    38%       |  2%    |
+| Den Haag  | 25%         |    35%      |    30%       | 10%    |
+
+
+## Quizz (4): Ready for analyses?
+
+|      | Age | has job |
+|------|-----|---------|
+| Dave | 36  | No      |
+| Eve  | 5   | Yes     |
+
+
+## Quizz (5): Ready for analyses?
+
+|             | costs | profit | 
+|-------------|-------|--------|
+| Retailers   | 50    | 10     |
+| Wholesalers | 20    |  5     |
+| Total       | 70    | 15     |
+
+
+
+
 ## Not all data is 'simple rectangular'
 
 \begin{picture}(0,0)
@@ -399,9 +448,9 @@ experiments, dissemination of results, and so on are not included.
   \begin{column}{0.5\textwidth}
     \begin{block}{Optimistically:}
       \begin{itemize}
-       \item On average $P(failure)\approx0.01$/year.
+       \item On average $P(failure)\approx 0.001$/year.
        \item UFPEL has $\approx 20\,000$ students.
-       \item We expect $\approx 200$ failures/year. 
+       \item We expect $\approx 20$ failures/year. 
     \end{itemize}
     \end{block}
   \end{column}
@@ -418,6 +467,7 @@ experiments, dissemination of results, and so on are not included.
 ### Technically 'clean' data
 
 - File type is known and can be read
+- Data structured for analyses
 - Variables are of correct type (number/date/text/categorical$\ldots$)
 - Records identified with statistical objects
 - Variables identified with statistical properties
@@ -426,6 +476,85 @@ experiments, dissemination of results, and so on are not included.
 
 You can read this data into your favorite analyses tool,
 without errors, with a single expression.
+
+
+## From raw to input, an example from the LATTES system
+
+\tiny{}
+
+```{xml, echo=TRUE}
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?><CURRICULO-VITAE SISTEMA-ORIGEM-XML="LATTES_OFFLINE" NUMERO-IDENTIF
+ICADOR="6217846985830016" DATA-ATUALIZACAO="15102019" HORA-ATUALIZACAO="140645"><DADOS-GERAIS NOME-COMPLETO="Tatiana Pereira C
+enci" NOME-EM-CITACOES-BIBLIOGRAFICAS="PEREIRA-CENCI,T.;PEREIRA, T.;Pereira-Cenci, Tatiana;PEREIRA, T;PEREIRACENCI, T;Pereira, 
+Tatiana;Pereira-Cenci, T.;MULO PATIAS, MAURO ELIAS MESKO" NACIONALIDADE="B" PAIS-DE-NASCIMENTO="Brasil" UF-NASCIMENTO="SP" CID
+ADE-NASCIMENTO="Santos" PERMISSAO-DE-DIVULGACAO="NAO" DATA-FALECIMENTO="" SIGLA-PAIS-NACIONALIDADE="BRA" PAIS-DE-NACIONALIDADE
+="Brasil"><RESUMO-CV TEXTO-RESUMO-CV-RH="Professora Associada, Departamento de Odontologia Restauradora da Faculdade de Odonto
+logia da Universidade Federal de Pelotas. Graduada em Odontologia pela FOB/USP (2001), Especialista em Prótese Dentária pelo H
+RAC/USP (2004), Mestre (2006) e Doutora (2008) em Clínica Odontológica/UNICAMP, com PDEE-CAPES na ACTA/Holanda (Nov/2006 a Out
+/2007). Tem experiência nos seguintes temas: biofilme, ensaios clínicos randomizados e revisões sistemáticas. É membro do The 
+BRIGHTER (Bias, Reporting, Implementation, Guidance, ETHics, IntEgrity and Reproducibility in Research) Meta-Research Group In
+itiative." TEXTO-RESUMO-CV-RH-EN= ....
+```
+
+\normalfont{}
+
+## LATTES XML format: nodes and attributes
+
+```{xml, echo=TRUE}
+<CURRICULO-VITAE SISTEMA-ORIGEM-XML="LATTES_OFFLINE" ...>
+   |                 |                   |
+  NODE NAME       ATTRIBUTE NAME       ATTRIBUTE VALUE
+
+<DADOS-GERAIS NOME-COMPLETO="Tatiana Pereira Cenci" ...>
+   |                 |                   |
+  NODE NAME       ATTRIBUTE NAME       ATTRIBUTE VALUE
+```
+
+
+
+## Structuring `XML` data using R
+
+```{r, echo=TRUE}
+library(xml2)
+xml  <- read_xml("curriculo.xml")
+node <- xml_find_first(xml,"/CURRICULO-VITAE")
+
+d <- data.frame(
+    LattesId  = xml_attr(node, "NUMERO-IDENTIFICADOR")
+  , Updated   = xml_attr(node, "DATA-ATUALIZACAO")
+)
+print(d)
+```
+
+## Structuring `XML` data using R
+
+```{r, echo=TRUE, message=FALSE}
+library(lubridate)
+
+# convert from text to proper data-time format
+d$Updated <- dmy(d$Updated)
+
+print(d)
+
+# export to CSV format
+write.csv(d, file="CV.csv")
+```
+
+## With a little more work
+
+```{r, echo=TRUE, message=FALSE}
+node <- xml_find_first(xml, "//ENDERECO-PROFISSIONAL")
+d$Institute <- xml_attr(node, "NOME-INSTITUICAO-EMPRESA")
+d$Faculty   <- xml_attr(node, "NOME-ORGAO")
+
+nodes <- xml_find_all(xml, "//ARTIGO-PUBLICADO")
+d$Articles <- length(nodes)
+nodes <- xml_find_all(xml, "//CAPITULO-DE-LIVRO-PUBLICADO")
+d$BookChapters <- length(nodes)
+
+print(d)
+```
+
 
 ## Valid data
 
@@ -436,9 +565,9 @@ without errors, with a single expression.
 
 ### Satisfy domain knowledge constraints
 
-- Age cannot be negative
-- Someone under 15 yrs old cannot have income from work
-- Mean economic growth/decline does not exceed 5\% in a certain sector
+- The last update can not be in the future
+- Full professorship under 24 is highly unlikely
+- More than $n$ papers/year is unlikely (depending on field)
 - $...$
     
 ### Justification
@@ -486,6 +615,7 @@ Invalid data leads to invalid statistical results.
 \end{center}
 
 - Actual data processing is not linear, you will go round a few times.
+    - Build up the SVC as your research project progresses.
 - Add or remove stages as needed.
 - This general idea scales really well.
 
@@ -509,7 +639,8 @@ Formatting date-time variable to `ISO8106` format.
 
 ### Where does the following activity take place?
 
-Estimating effect of educational level on income.
+Estimating effect of internationalization academic output.
+
 
 
 ## Quizz (3)
@@ -552,7 +683,26 @@ columns of the data and the backbone.
 
 
 
+## Implementation
 
+\centering\huge
+
+Demo
+
+
+## Summary
+
+1. Data represents information
+2. It is important to choose a representation that suites analyses.
+3. Obtaining, cleaning, analyzing data and reporting on results follow a value
+   chain structure. It is useful to separate tasks accordingly.
+
+###
+
+There are free and open source tools supporting all necessary methods and
+transformations.
+   
+   
 
 
 
