@@ -2,3 +2,10 @@
 .Rhistory
 .RData
 .Ruserdata
+*.aux
+*.log
+
+paper_tatiana/
+rintro/
+rcourse/
+

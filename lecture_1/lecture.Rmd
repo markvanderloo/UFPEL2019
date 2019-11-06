@@ -477,6 +477,20 @@ experiments, dissemination of results, and so on are not included.
 You can read this data into your favorite analyses tool,
 without errors, with a single expression.
 
+## From raw to input, an example from the LATTES system
+
+\centering
+\includegraphics[height=7cm]{fig/tatiana.png}
+
+
+## From raw to input, an example from the LATTES system
+
+\centering
+\includegraphics[height=7cm]{fig/xmlbutton.png}
+
+
+
+
 
 ## From raw to input, an example from the LATTES system
 
