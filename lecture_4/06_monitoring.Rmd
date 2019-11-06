@@ -1,0 +1,190 @@
+---
+title: "Data Cleaning Tutorial: imputation"
+author: "Mark van der Loo"
+output:
+  beamer_presentation:
+    latex_engine: xelatex
+    includes:
+      in_header: ../tex/header.tex
+classoption: "aspectratio=169"
+---
+
+## Try the code
+
+\centering\huge
+
+`03input/monitoring.R`
+
+## How to monitor changes
+
+### It depends $\ldots$
+
+- Cell-by-cell changes?
+- Count changes?
+- Count changes in satisfying rules?
+- Measure changes in aggregates?
+
+## Decomposing the number of changes in cells
+
+\centering
+\includegraphics[height=5cm]{fig/cellsplit.pdf}
+
+```{r, eval=FALSE}
+validate::cells(start=dataset1, step1=dataset2, step3=dataset3, ...)
+```
+
+
+## Decomposing the number of changes in validation results
+
+\centering
+\includegraphics[height=5cm]{fig/rulesplit.pdf}
+
+```{r, eval=FALSE}
+validate::compare(rules, start=dataset1, step1=dataset2, ...)
+```
+
+
+## Assignment
+
+1. Read all the versions of datasets created today
+2. Create plots showing the progress in the cell counts and rule counts methods.
+
+
+# More on monitoring
+
+## Process overview
+
+\begin{center}
+\includegraphics[]{fig/datastep.pdf}
+\end{center}
+
+
+## Process overview
+
+\begin{center}
+\includegraphics[]{fig/datastep2.pdf}
+\end{center}
+
+
+## How to measure changes between `data` and `data'`?
+
+### Many ways
+
+- List every change (record, variable, old, new) ('diff')
+- Count differences in cells, or validation
+- $\vdots$
+- Note if something has changed (`TRUE`/`FALSE`)
+
+## Needs
+
+### Logging framework
+
+- Supporting any type of comparison of `data` and `data'`
+- Supporting any kind of transformation between `data` and `data'`
+- Without demanding changes in the transforming functions
+- That does not get in the way of the user
+
+## Logging framework
+
+### Idea
+
+- A data cleaning procedure is implemented as a sequence of expressions (a script).
+- These expressions are _composed_ into a programe when you run the script (`source()`)
+- To obtain a logging framework that is not intrusive for the user, we can _change the way expressions are composed_.
+
+## The `lumberjack` package: preparation
+
+\scriptsize{}
+```{r}
+dat <- read.csv("data/SBS2000.csv", stringsAsFactors = FALSE)
+head(dat,3)
+
+library(validate)
+rules <- validator(.file="data/ruleset.R")
+
+library(lumberjack)
+logger <- cellwise$new(key="id")
+```
+\normalfont{}
+
+## The `lumberjack` package: process the data
+
+```{r}
+dat %L>%
+  lumberjack::start_log(logger) %L>%
+  errorlocate::replace_errors(rules) %L>%
+  rspa::tag_missing() %L>%
+  simputation::impute_rhd(. ~ 1, backend="VIM") %L>%
+  rspa::match_restrictions(rules) %L>%
+  lumberjack::dump_log() -> dat_out
+```
+
+## Read the log:
+
+
+\scriptsize{}
+```{r}
+read.csv("cellwise.csv") %L>% head(3)
+```
+\normalsize{}
+
+## Background
+
+The pipe is a sort of _function composition_ operator.
+```{r,eval=FALSE}
+# Pseudocode:
+`%>%` <- function(x, fun){
+  return( fun(x) )
+}
+```
+
+The `lumberjack` does some extra things:
+```{r, eval=FALSE}
+# Pseudocode
+%L>% <- function(x, fun){
+  y <- fun(x)
+  if ( logger_attached_to(x) ){
+    logger <- get_logger(x)
+    logger$add_difference(x,y)
+  }
+  return(y)
+}
+ 
+```
+
+## But there is more
+
+### As of `lumberjack 1.0.0`
+
+1. Add the following line to an existing R script, e.g. `cleanup.R`
+
+```{r, eval=FALSE}
+start_log(SBS2000, logger=cellwise$new(key="id"))
+```
+
+2. Run the file from the lumberjack package.
+```{r, eval=FALSE}
+library(lumberjack)
+lumberjack::run("cleanup.R")
+```
+
+_and everything is done for you_.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

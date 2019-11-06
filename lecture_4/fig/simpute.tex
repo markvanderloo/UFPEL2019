@@ -1,0 +1,38 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,decorations.pathreplacing} 
+\begin{document}
+\tikzset{
+    %Define standard arrow tip
+    >=stealth',
+    %Define style for boxes
+    point/.style={
+           rectangle,
+           rounded corners,
+           draw=black, very thick,
+           minimum width=5em,
+           minimum height=2em,
+           font=\sffamily,
+           text centered},
+    annote/.style={
+          font=\sffamily
+    },
+    % Define arrow style
+    arrow/.style={
+           ->,
+           thick,
+           shorten <=2pt,
+           shorten >=2pt,},   
+}
+
+\begin{tikzpicture}
+\node[point] (in) {data};
+\node[point, right=7mm of in]  (mod){\texttt{impute\_<model>()}};
+\node[point, right=7mm of mod] (out){data'};
+\node[point, above=7mm of mod] (par){\texttt{formula}};
+\path (in.east) edge[arrow] (mod.west);
+\path (mod.east) edge[arrow] (out.west);
+\path (par.south) edge[arrow] (mod.north);
+\end{tikzpicture}
+
+\end{document}
