@@ -27,7 +27,7 @@ with the lecture materials.
 ### Contents
 
 - Lecture 1: Structuring data and structuring data analyses.
-- Lecture 2: Topics in reproducibility and introduciton to R
+- Lecture 2: Topics in reproducibility and introduction to R
 - Lecture 3: Data cleaning 1: Processing raw data, approximate matching, data validation.
 - Lecture 4: Data cleaning 2: Error localization, imputation, monitoring data processes 
 
