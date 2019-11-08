@@ -1,0 +1,383 @@
+---
+title: "Reproducible Research"
+author: "Mark van der Loo"
+output:
+  beamer_presentation:
+    latex_engine: xelatex
+    includes:
+      in_header: ../tex/header.tex
+classoption: "aspectratio=169"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## The reproducibility crisis
+
+\centering
+\includegraphics[height=0.7\textheight]{fig/news.jpg}
+
+## Homework (if you want to know more)
+
+\centering\huge
+Read the wikipedia article on 'replication crisis'
+
+
+## ASTM definitions (in engineering)
+
+### Replicability
+
+A measurement is _replicated_ if it is performed in the same
+laboratory, by the same operator, using the same apparatus,
+within a short time span.
+
+
+### Reproducibility
+
+A measurement may be _reproduced_ in a different laboratory,
+by a different operator, using a different apparatus after an
+undetermined time span.
+
+
+- These terms define how precision and accuracy generalize when relaxing
+  certain conditions.
+
+
+## In official statistics
+
+
+### UN principles governing international statistical activities
+
+``[...] methods and procedures employed in the production of international
+statistics are chosen to meet professional **scientific standards** and are made
+transparent for the users.''
+
+### European Statistics Code of Practice
+
+``Based on **scientific principles and methods**, the European Statistical System will
+offer and continuously improve a programme of harmonised European statistics''
+
+
+- No exlicit reference to reproducibility, nor defined precisely, but implied
+reproducibility by reference to the scientific method.
+
+
+
+## Reproducibility and the scientific method
+
+### Scientific objectivity
+
+Reproducibility  is an aspect of what is called _process objectivity_ of
+science. It adheres to the idea that scientific statements are objective in the
+sense that they are produced in a way that ``neither depend on contingent social
+and ethical values, nor on the individual bias of a
+scientist''\footnote{Stanford encyclopedia of philosophy}\footnote{
+Definition of concepts is not part of this process}.
+
+### Notes
+
+- Statistical inference quantifies the measure of reproducibility of statistical (sampling) experiments.
+- Reproducible data analyses is a very basic requirement underlying reproducibility which in practice turns out to be non-trivial.
+
+
+
+## Practical reasons for reproducibility
+
+### 
+
+- Accountability, transparancy
+- Efficiency 
+- Knowledge sharing
+- Process quality
+    - Usability (understandable)
+    - Maintainability (testable, analyzable)
+
+
+
+# Reproducibility of statistical experiments
+
+## Statistical inference
+
+
+###
+
+> Given the result of my randomized experiment, how do I expect this result to vary if I repeat the experiment?
+
+
+### Examples
+
+- $p$-value: estimated probability that I will see a different result when the experiment is repeated.
+- $95\%$-confidence interval: estimated interval where I expect to see the result when the experiment is repeated.
+
+### Note
+
+$p$ values, confidence intervals, etc express an estimate of the amount of
+evidence gatherd by an experiment, for a given result. It does _not_ say whether
+the result is important.
+
+
+## Statistical inference
+
+### 1. Estimate a population parameter, based on a randomized sample
+
+
+### 2. Analytical route
+
+a. Derive a distribution of the estimate, in the limit of sampling over and over again.
+b. Based on a your actual sample, estimate the parameters of the distribution of your estimate over repeated samples.
+
+
+
+### 2. Computational (bootstrap) route
+
+a. From your randomized sample, draw a new sample (SRSWR), and estimate.
+b. Repeat step 2 many times to estimate the distribution of your estimate over repeated samples.
+
+
+### 3. Use estimated sampling distribution for $p$ values, CI, $\ldots$
+
+
+## Example: estimate mean turnover from a sample of retailers
+
+```{r, fig.height=5}
+uured <- "#F52A01"
+invd <- function(x,mu,sd){
+  sqrt(-2*sd*sd*log(sqrt(2*pi)*sd*dnorm(x,mu,sd))) + mu
+}
+library(validate)
+data(retailers)
+to <- with(retailers,{
+  ifelse(turnover/staff > 10000,turnover/1000,turnover)
+})
+par(cex=1.3)
+to <- to[!is.na(to)]
+sdhat <- sd(to,na.rm=TRUE)
+muhat <- mean(to,na.rm=TRUE)
+n <- length(to)
+x <- seq(min(to),max(to),length.out=300)
+
+hist(to,breaks=15,main='Turnover of 51 retailers',xlab="turnover (kfl)",las=1,freq=TRUE)
+d <- dnorm(x,muhat, sdhat/sqrt(length(to)))*10000
+lines(x,d,lwd=2,col=uured)
+
+left <- qnorm(0.025,mean=muhat,sd = sdhat/sqrt(n))
+right <- qnorm(0.975,mean=muhat,sd=sdhat/sqrt(n))
+i <- x<=right & x >= left
+xpgn <- c(range(x[i]),rev(x[i]))
+ypgn <- c(0,0,rev(d[i]))
+polygon(xpgn,ypgn,col=uured,density = 7,lwd=2)
+abline(v=muhat,lwd=2)
+#text(2700,13.2, bquote(hat(theta) == .(signif(muhat,4))))
+text(4500,9,substitute( 
+  paste(Theta, " ~ N(", hat(theta), "=", m, ", ", hat(sigma)/sqrt(n), "=", s2, ")"),
+    list(m = signif(muhat,4), s2 = signif(sdhat/sqrt(length(to)),4))
+  ))
+legend("right",legend="95% conf. int.", bty="n",density=14,fill=uured,border=uured)
+```
+
+
+## Example 2: Computational inference of windsorized mean
+
+```{r,eval=TRUE, echo=TRUE}
+# Mean, windsorized at median + 3 times median absolute deviation
+wins_mean <- function(x){
+  limit <- median(x) +  3 * mad(x)
+  x[x > limit] <- limit
+  mean(x)
+}
+```
+
+## Estimate windsorized mean from sample of retailers
+
+```{r, fig.height=5}
+library(boot)
+stat <- function(d,i){
+  wins_mean(d[i])
+}
+set.seed(1)
+b <- boot(to, statistic = function(d,i) wins_mean(d[i]), R=500)
+par(cex=1.3)
+hist(to,breaks=15,main='Turnover of 51 retailers',xlab="turnover (kfl)",las=1,freq=TRUE)
+d <- density(b$t)
+lines(d$x,d$y*1e4,col=uured,lwd=2)
+text(5000,10,substitute(
+  paste(E[b],hat(theta)," = ", m
+        ,", ", hat(sigma)[b]," = ", ss )
+  , list(m=signif(mean(b$t),4),ss=signif(sd(b$t),4))
+))
+abline(v=mean(b$t),lwd=2)   
+q <- quantile(b$t,probs=c(0.025,0.975))
+i <- d$x > q[1] & d$x < q[2] 
+xx <- c(q, rev(d$x[i]))
+yy <- c(c(0,0),rev(d$y[i]))
+polygon(xx,yy*1e4,density = 7,col=uured,lwd=2)
+     
+legend("right",legend="95% conf. int.", bty="n",density=14,fill=uured,border=uured)
+```
+
+
+
+# Reproducibility of data processing
+
+
+
+## Scholarship in computational science
+
+_An article about computational science in a scientific
+journal is **not** the scholarship itself, it is merely **advertising**
+of the scholarschip. The actual scholarship is the complete
+software development environment and the complete set of instructions
+which generated the figures.\footnote{Buckheim and Donovo (1995)}_
+
+
+
+
+## Main idea of a reproducible analyses
+
+The product of an analyses is not a written article, but rather
+a _compendium\footnote{Gentleman and Temple Lang (2004)}_ containing
+
+- The data being analyzed
+- Runnable code used to compute the numbers
+- The text explaining the problem, methods and interpretation.
+
+### Note
+
+This requires significant programming/software engineering skills!
+
+
+## Dynamic documents: literate programming
+
+\begin{center}
+\includegraphics[height=0.8\textheight]{fig/knuth-web.pdf}
+\end{center}
+
+\tiny{Knuth (1992)}
+
+## Reproducible research using `rmarkdown`
+
+
+\huge\centering Demo
+
+
+# Keeping track of changes: version control
+
+## Why version control?
+
+\begin{columns}
+\begin{column}{0.3\textwidth}
+\includegraphics[height=0.8\textheight]{fig/folder.png}
+\end{column}\begin{column}{0.7\textwidth}
+\begin{itemize}
+\item Keeping track of updates manually is messy, difficult, and depends on discipline.
+\item Fortunately this can be automated.
+\end{itemize}
+\end{column}
+\end{columns}
+
+
+## 
+
+\centering
+\includegraphics[height=0.8\textheight]{fig/ph1/UG01.jpg}
+
+
+## 
+
+\centering
+\includegraphics[height=0.8\textheight]{fig/ph1/UG02.jpg}
+
+```{bash, eval=FALSE, echo=TRUE}
+$> vi myfile.R
+```
+
+
+## 
+
+\centering
+\includegraphics[height=0.8\textheight]{fig/ph1/UG03.jpg}
+
+```{bash, eval=FALSE, echo=TRUE}
+$> git add myfile.R
+```
+
+
+## 
+
+\centering
+\includegraphics[height=0.8\textheight]{fig/ph1/UG04.jpg}
+
+```{bash, eval=FALSE, echo=TRUE}
+$> vi myfile.R
+```
+
+
+## 
+
+\centering
+\includegraphics[height=0.8\textheight]{fig/ph1/UG05.jpg}
+
+```{bash, eval=FALSE, echo=TRUE}
+$> git add myfile.R
+$> git commit -m "fixed a bug"
+```
+
+
+## 
+
+\centering
+\includegraphics[height=0.8\textheight]{fig/ph1/UG06.jpg}
+
+```{bash, eval=FALSE, echo=TRUE}
+$> vi myfile.R
+```
+
+
+## 
+
+\centering
+\includegraphics[height=0.8\textheight]{fig/ph1/UG07.jpg}
+
+```{bash, eval=FALSE, echo=TRUE}
+$> vi myfile.R
+```
+
+
+## 
+
+\centering
+\includegraphics[height=0.8\textheight]{fig/ph1/UG08.jpg}
+
+```{bash, eval=FALSE, echo=TRUE}
+$> vi myfile.R
+```
+
+
+## 
+
+\centering
+\includegraphics[height=0.8\textheight]{fig/ph1/UG09.jpg}
+
+```{bash, eval=FALSE, echo=TRUE}
+$> git log --oneline
+$> git checkout be9055b .
+```
+
+## 
+
+\centering
+\includegraphics[height=0.8\textheight]{fig/ph1/UG10.jpg}
+
+
+
+## 
+
+\centering
+\includegraphics[height=0.8\textheight]{fig/ph1/UG11.jpg}
+
+
+##
+
+\centering\huge Demo
+
