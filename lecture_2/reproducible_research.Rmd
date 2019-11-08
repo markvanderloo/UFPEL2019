@@ -157,7 +157,7 @@ muhat <- mean(to,na.rm=TRUE)
 n <- length(to)
 x <- seq(min(to),max(to),length.out=300)
 
-hist(to,breaks=15,main='Turnover of 51 retailers',xlab="turnover (kfl)",las=1,freq=TRUE)
+hist(to,breaks=15,main='Turnover of 51 retailers',xlab="turnover (kEUR)",las=1,freq=TRUE)
 d <- dnorm(x,muhat, sdhat/sqrt(length(to)))*10000
 lines(x,d,lwd=2,col=uured)
 
