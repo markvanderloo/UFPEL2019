@@ -13,6 +13,18 @@ classoption: "aspectratio=169"
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+## Contents
+
+
+| Lecture | Topics                                       |
+|---------|----------------------------------------------|
+| 1       | Structuring data and analyses                |
+| 2       | Reproducibility and introduction to R        |
+| 3       | Data cleaning 1: raw data, data validation   |
+| 4       | Data cleaning 2: fixing errors, missing data |
+
+
+
 ## Materials for these lectures
 
 \centering\huge `github.com/markvanderloo/UFPEL2019`
