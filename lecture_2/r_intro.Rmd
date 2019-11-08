@@ -13,11 +13,6 @@ classoption: "aspectratio=169"
 knitr::opts_chunk$set(comment=NA)
 ```
 
-## Please download and unzip
-
-\center\huge \texttt{https://bit.ly/32vb0K6}
-
-
 
 
 ## Contents, today's goal
@@ -61,6 +56,18 @@ citation()
 # to cite R package 'validate', type:
 citation("validate")
 ```
+
+
+## Please download _and unzip_
+
+Go to: \Large\texttt{github.com/markvanderloo/UFPEL2019}
+
+\begin{center}
+\includegraphics[height=0.7\textheight]{fig/download.jpg}
+\end{center}
+
+
+
 
 ## RStudio
 
