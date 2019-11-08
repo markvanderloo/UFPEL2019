@@ -1,0 +1,38 @@
+---
+title: "Research at UFPEL"
+author: "Mark van der Loo"
+date: "The Important Conference 2019"
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Introduction
+
+### The main question
+
+Does international experience influence the academic output of researchers?
+
+
+## Our researchers work really hard
+
+```{r}
+tab <- read.csv("../04Statistics/summary.csv")
+knitr::kable(tab, col.names=c("Researchers","mean","standard deviation")
+             ,caption="Output in articles")
+```
+
+## Output for each researcher
+
+
+```{r, fig.align='center', out.height="6cm"}
+knitr::include_graphics("../04Statistics/articles_by_researcher.png")
+```
+
+## Conclusion
+
+- Interesting results
+- More work is needed

@@ -1,0 +1,47 @@
+---
+title: "Research output at UFPEL"
+author: "Mark van der Loo"
+date: "11/4/2019"
+output: pdf_document
+---
+
+
+```{r, echo=FALSE}
+# load the results
+cv_summary <- read.csv("../04Statistics/summary.csv")
+```
+
+
+
+
+
+## Introduction
+
+Productivity of researchers is an important measure of research
+activity at UFPEL. 
+
+## Methodology
+
+For this paper, ```r cv_summary$pesquisadores```
+CV's were downloaded from the LATTES system. The data were
+cleaned and summarized.
+
+## Results
+
+Below is a table, summarizing the data and articles
+```{r, echo=FALSE}
+knitr::kable(cv_summary)
+```
+
+We also have a beautiful graph showing output for
+each researcher.
+
+```{r, echo=FALSE, out.width="8cm"}
+knitr::include_graphics("../04Statistics/articles_by_researcher.png")
+```
+
+## Conclusion
+
+Researchers at UFPEL are very productive!
+
+
