@@ -4,6 +4,7 @@
 .Ruserdata
 *.aux
 *.log
+*.pdf
 
 paper_tatiana/
 rintro/
