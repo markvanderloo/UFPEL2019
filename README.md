@@ -67,16 +67,7 @@ Go to [rstudio.com](https://rstudio.com), click on `Download RStudio`, Choose
 the Free version of RStudio Desktop, and then download and install the RStudio
 version that is suited for your operating system.
 
-#### 3. Install R packages
 
-R packages are standardized extensions to R that offer extra functionality.
-
-1. Open RStudio
-2. In the console, copy the following command and press `<ENTER>`
-
-```r
-install.packages(c("stringdist","validate","simputation"),dependencies=TRUE)
-```
 
 ----
 ## License
