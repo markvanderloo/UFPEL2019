@@ -2,7 +2,7 @@ source("02Input/functions.R")
 library(lubridate)
 
 # get the names of all files in 01Raw
-files <- dir("01Raw/", full.names = TRUE)
+files <- dir("01Raw/", recursive = TRUE, full.names = TRUE)
 
 # extract the data from each file: one row for each file
 L <- lapply(files, extract_cv_data)

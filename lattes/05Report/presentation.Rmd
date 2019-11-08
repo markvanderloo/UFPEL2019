@@ -34,5 +34,14 @@ knitr::include_graphics("../04Statistics/articles_by_researcher.png")
 
 ## Conclusion
 
+### Summary
+
 - Interesting results
 - More work is needed
+
+
+### References
+
+MPJ van der Loo (2019) _Research at UFPEL_ The high-impact journal **17** 122-134.
+
+
