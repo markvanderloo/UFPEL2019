@@ -33,7 +33,7 @@ laptop with the necessary software installed (described below).
 | Lecture | Content                                     | Materials |
 |---------|---------------------------------------------|-----------|
 | 1       | Structuring data and analyses               |           |
-| 2       | Reproducibility and introduction to R       |           |
+| 2       | Reproducibility and introduction to R       | [r_intro_ufpel2019,zip](https://github.com/markvanderloo/UFPEL2019/raw/master/files/r_intro_ufpel2019.zip)          |
 | 3       | Data cleaning 1 raw data, data validation   |           |
 | 4       | Data cleaning 2 fixing errors, missing data |           |
 
