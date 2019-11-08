@@ -13,6 +13,15 @@ classoption: "aspectratio=169"
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+## Materials for these lectures
+
+\centering\huge `github.com/markvanderloo/UFPEL2019`
+
+\begin{picture}(0,0)
+\put(100,-80){\includegraphics[height=3cm]{fig/ufpel2019QR.png}}
+\end{picture}
+
+
 # The faces of data
 
 ## What do we mean when we say 'data'?
