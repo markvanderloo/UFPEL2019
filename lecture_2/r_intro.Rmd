@@ -13,6 +13,13 @@ classoption: "aspectratio=169"
 knitr::opts_chunk$set(comment=NA)
 ```
 
+## Please download and unzip
+
+\center\huge \texttt{https://bit.ly/32vb0K6}
+
+
+
+
 ## Contents, today's goal
 
 - What is R, RStudio
