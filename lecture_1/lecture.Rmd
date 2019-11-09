@@ -182,7 +182,6 @@ $\downarrow$
 124 & 12 &2 &\phantom{0}89\\
 \hline
 \end{tabular}
-\label{eq:database}
 \end{equation*}
 
 
@@ -220,7 +219,6 @@ $\downarrow$
 124 & 12 &2 &\phantom{0}89\\
 \hline
 \end{tabular}
-\label{eq:database}
 \end{equation*}
 \begin{center}
 $\downarrow$
