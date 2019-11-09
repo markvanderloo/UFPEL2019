@@ -12,7 +12,7 @@ classoption: "aspectratio=169"
 ## Try the code together with your neighbour
 
 \centering\huge
-`02input/raw_to_input.R`
+`02input/merge_with_backbone.R`
 
 
 ## String distance

@@ -13,11 +13,18 @@ classoption: "aspectratio=169"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Please download and unzip
+
+\Large\texttt{github.com/markvanderloo/UFPEL2019}
+
+\begin{center}
+\includegraphics[height=6cm]{fig/download.png}
+\end{center}
 
 ## Try the code together with your neighbour
 
 \centering\huge
-`01raw/json_to_csv.R`
+`02input/json_cleanup.R`
 
 ## Reading Dirty Data
 
