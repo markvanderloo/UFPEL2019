@@ -113,7 +113,7 @@ Definition of concepts is not part of this process}.
 ### Note
 
 $p$ values, confidence intervals, etc express an estimate of the amount of
-evidence gatherd by an experiment, for a given result. It does _not_ say whether
+evidence gatherd by an experiment for a given result. It does _not_ say whether
 the result is important.
 
 
