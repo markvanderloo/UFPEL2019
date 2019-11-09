@@ -47,7 +47,7 @@
 \setbeamerfont{part title}{series=\bfseries}
 
 % section title attributes
-\setbeamercolor{section title}{fg=ufpelliteblue}
+\setbeamercolor{section title}{fg=ufpeldarkblue}
 \setbeamerfont{section title}{series=\bfseries}
 
 % chapter title attributes
@@ -91,11 +91,15 @@
       +(0,0pt) rectangle +(5mm,12cm); 
   \end{tikzpicture}
 
-  % CBS logo (bottom left)
+  % UFPEL logo (bottom right)
   \begin{tikzpicture}[remember picture, overlay]
     \node[xshift=-1cm, yshift=0.5cm] at (current page.south east){
         \includegraphics[width=2cm]{../tex/logos/ufpel50.png}
-    } ;
+    };
+    \node[xshift=25mm, yshift=2.3mm] at (current page.south west){
+        \Tiny{\texttt{\href{https://github.com/markvanderloo/UFPEL2019}{https://github.com/markvanderloo/UFPEL2019}} }
+    };
+
   \end{tikzpicture}
 
 
