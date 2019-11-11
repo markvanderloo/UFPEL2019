@@ -61,7 +61,8 @@ Data are a representation of information.
 
 ## Example: IBGE
 
-![](fig/ibge.png)
+\centering
+\includegraphics[height=6cm]{fig/ibge.png}
 
 \tiny Source: https://www.ibge.gov.br/en/statistics/economic/industry-and-construction/22733-demography-of-enterprises-and-statistics-of-entrepreneurship.html?=&t=resultados
 
@@ -311,7 +312,7 @@ Reinhart-Rogoff error
 \includegraphics[height=0.7\textheight]{fig/excel1.png}
 \end{center}
 
-\hfill\tiny Ziemann, Eren, El-Osta \textit{Genome Biology} \textbf{17} 177 (2016)
+\hfill\tiny Ziemann, Eren, El-Osta \textit{Genome Biology} \textbf{17} 177 (2016)\phantom{MMMMMMMMMMMM}
 
 
 ## Homework assignment
@@ -320,6 +321,17 @@ Reinhart-Rogoff error
 {\huge Google `excel disasters'}
 
 and spend 30 minutes reading what you find
+
+
+## Presentation versus analysis
+
+### Spreadsheet software is unsuited for analysis because
+
+- Autoformatting
+- Does not force consistency
+- Hard to analyze: code is hidden 
+- Hard to test
+- You see a 'state' not the process
 
 
 ## A bit of terminology
@@ -505,7 +517,7 @@ without errors, with a single expression.
 ## From raw to input, an example from the LATTES system
 
 \centering
-\includegraphics[height=7cm]{fig/xmlbutton.png}
+\includegraphics[height=4cm]{fig/xmlbutton.png}
 
 
 
@@ -736,6 +748,14 @@ There are free and open source tools supporting all necessary methods and
 transformations.
    
 
+
+## For the next lecture: please install R and RStudio
+
+\centering\huge Instructions: `github.com/markvanderloo/UFPEL2019`
+
+\begin{picture}(0,0)
+\put(100,-80){\includegraphics[height=3cm]{fig/ufpel2019QR.png}}
+\end{picture}
 
 
 
