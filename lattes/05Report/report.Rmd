@@ -11,11 +11,7 @@ output: pdf_document
 cv_summary <- read.csv("../04Statistics/summary.csv")
 ```
 
-
-
-
-
-## Introduction
+## Awesome introduction
 
 Productivity of researchers is an important measure of research
 activity at UFPEL. 
