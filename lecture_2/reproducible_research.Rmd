@@ -13,6 +13,14 @@ classoption: "aspectratio=169"
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+## Online materials
+
+\centering\huge `github.com/markvanderloo/UFPEL2019`
+
+\begin{picture}(0,0)
+\put(100,-80){\includegraphics[height=3cm]{../lecture_1/fig/ufpel2019QR.png}}
+\end{picture}
+
 ## The reproducibility crisis
 
 \centering
@@ -228,7 +236,7 @@ _An article about computational science in a scientific
 journal is **not** the scholarship itself, it is merely **advertising**
 of the scholarschip. The actual scholarship is the complete
 software development environment and the complete set of instructions
-which generated the figures.\footnote{Buckheim and Donovo (1995)}_
+which generated the figures.\footnote{Buckheit and Donovo (1995)}_
 
 
 
@@ -244,7 +252,7 @@ a _compendium\footnote{Gentleman and Temple Lang (2004)}_ containing
 
 ### Note
 
-This requires significant programming/software engineering skills!
+This requires some skills in tools and programming.
 
 
 ## Dynamic documents: literate programming
