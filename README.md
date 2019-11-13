@@ -69,6 +69,26 @@ Go to [rstudio.com](https://rstudio.com), click on `Download RStudio`, Choose
 the Free version of RStudio Desktop, and then download and install the RStudio
 version that is suited for your operating system.
 
+#### 3. Install packages
+ 
+Copy-paste and execute this code to install all necessary packages for the
+tutorial (may take a few minutes)
+
+```r
+install.packages(c(
+        "daff"
+      , "errorlocate"
+      , "jsonlite"
+      , "lumberjack"
+      , "readr"
+      , "rspa"
+      , "simputation"
+      , "stringr"
+      , "validate"
+      , "XML")
+  , dependencies=TRUE)
+```
+
 
 
 ----
