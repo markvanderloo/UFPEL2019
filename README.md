@@ -89,6 +89,8 @@ install.packages(c(
   , dependencies=TRUE)
 ```
 
+----
+
 ### Some resources
 
 
@@ -99,7 +101,7 @@ Matloff.
 When you learn R it is a good idea to allow yourself to bump into all sorts of
 applications. One way to do that is to scroll through
 [r-bloggers](https://r-bloggers.com) once a day and read or skim one or two
-articles collected there. YOu will get an impression of what people do with R.
+articles collected there. You will get an impression of what people do with R.
 
 There are many books with titles like _X with R_ where _X_ can by almost any
 topic. Once you've worked through the fastR tutorial, you may want to see if
