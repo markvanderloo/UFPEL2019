@@ -112,7 +112,7 @@ interested in more advanced ways of doing data manipulation and graphics.
 
 - If you have large data sets (say, more than one hundred thousand rows) and
   speed is important for you, I recommend to start learning to work with
-[data.table](https://rdatatable.gitlab.io/data.table/) by Matt Dowl _et al._.
+[data.table](https://rdatatable.gitlab.io/data.table/) by Matt Dowle _et al._.
 - For smaller datasets, I recommend familiarizing yourself with the packages
 `dplyr`, `tidyr`, and `ggplot2` for graphics. The [R for data
 science](https://r4ds.had.co.nz/) online book by Garret Grolemund and Hadley
