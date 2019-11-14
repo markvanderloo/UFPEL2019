@@ -89,6 +89,34 @@ install.packages(c(
   , dependencies=TRUE)
 ```
 
+### Some resources
+
+
+To start learning R, I highly recommend the free online [fastR
+tutorial](https://github.com/matloff/fasteR/blob/master/README.md) by Norm
+Matloff.
+
+When you learn R it is a good idea to allow yourself to bump into all sorts of
+applications. One way to do that is to scroll through
+[r-bloggers](https://r-bloggers.com) once a day and read or skim one or two
+articles collected there. YOu will get an impression of what people do with R.
+
+There are many books with titles like _X with R_ where _X_ can by almost any
+topic. Once you've worked through the fastR tutorial, you may want to see if
+there is a book that is interesting for your field of work.
+
+After you have familiarized yourself with the basics of R, you may be
+interested in more advanced ways of doing data manipulation and graphics using
+tools from the so-called _tidyverse_. I especially recommend familiarizing
+yourself with the packages `dplyr`, `tidyr`, and `ggplot2`. The [R for data
+science](https://r4ds.had.co.nz/) online book by Garret Grolemund and Hadley
+Wickham is a good place to start with that.
+
+If you want to learn more about programming in the R language, the free 
+online book [the art of R programming](http://diytranscriptomics.com/Reading/files/The%20Art%20of%20R%20Programming.pdf) by Norm Matloff is a great reference.
+
+
+Finally, for all things data cleaning, you could consider our book on [Statistical data cleaning with applications in R](https://www.wiley.com/en-us/Statistical+Data+Cleaning+with+Applications+in+R-p-9781118897157).
 
 
 ----
