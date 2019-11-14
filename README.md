@@ -112,7 +112,7 @@ interested in more advanced ways of doing data manipulation and graphics.
 
 - If you have large data sets (say, more than one hundred thousand rows) and
   speed is important for you, I recommend to start learning to work with
-[data.table](https://rdatatable.gitlab.io/data.table/).
+[data.table](https://rdatatable.gitlab.io/data.table/) by Matt Dowl _et al._.
 - For smaller datasets, I recommend familiarizing yourself with the packages
 `dplyr`, `tidyr`, and `ggplot2` for graphics. The [R for data
 science](https://r4ds.had.co.nz/) online book by Garret Grolemund and Hadley
@@ -123,6 +123,24 @@ online book [the art of R programming](http://diytranscriptomics.com/Reading/fil
 
 
 Finally, for all things data cleaning, you could consider our book on [Statistical data cleaning with applications in R](https://www.wiley.com/en-us/Statistical+Data+Cleaning+with+Applications+in+R-p-9781118897157).
+
+----
+
+### Note
+
+Almost all of R is developed by (academic) researchers. Please cite them when you use R 
+or one of its packages. Obtaining citing information is very easy, just type
+
+```r
+citation()
+```
+at the R command-line to get citation information for R. To get the citation for
+a certain package, just add the name of the package between quotes. For example:
+
+```r
+citation("stringdist")
+```
+
 
 
 ----
