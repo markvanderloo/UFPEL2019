@@ -108,9 +108,13 @@ topic. Once you've worked through the fastR tutorial, you may want to see if
 there is a book that is interesting for your field of work.
 
 After you have familiarized yourself with the basics of R, you may be
-interested in more advanced ways of doing data manipulation and graphics using
-tools from the so-called _tidyverse_. I especially recommend familiarizing
-yourself with the packages `dplyr`, `tidyr`, and `ggplot2`. The [R for data
+interested in more advanced ways of doing data manipulation and graphics. 
+
+- If you have large data sets (say, more than one hundred thousand rows) and
+  speed is important for you, I recommend to start learning to work with
+[data.table](https://rdatatable.gitlab.io/data.table/).
+- For smaller datasets, I recommend familiarizing yourself with the packages
+`dplyr`, `tidyr`, and `ggplot2` for graphics. The [R for data
 science](https://r4ds.had.co.nz/) online book by Garret Grolemund and Hadley
 Wickham is a good place to start with that.
 
